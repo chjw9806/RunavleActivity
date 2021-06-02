@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     String TAG2 = "THREAD2";
     //String TAG = "THREAD";
 
-    class WorkerThread extends Thread{
+    class WorkerRunnable extends Thread{
         public void run(){
             int i =0;
             for(i = 0; i < 20 && running; i++){
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         running = true;
-        wt = new WorkerThread();
+        wt = new WorkerRunnable();
         wt.start();
         wr = new Thread(new Runnable() {
             @Override

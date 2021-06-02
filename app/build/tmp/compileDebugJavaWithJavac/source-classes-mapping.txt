@@ -1,0 +1,6 @@
+com/example/runavleactivity/BuildConfig.java
+ com.example.runavleactivity.BuildConfig
+com/example/runavleactivity/MainActivity.java
+ com.example.runavleactivity.MainActivity
+ com.example.runavleactivity.MainActivity$1
+ com.example.runavleactivity.MainActivity$WorkerThread
