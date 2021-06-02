@@ -9,7 +9,7 @@ import android.util.Log;
 import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
-    WorkerRunnable wr;
+    Thread wr;
     WorkerThread wt;
     boolean running = true;
     String TAG2 = "THREAD2";
@@ -30,10 +30,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-    class WorkerRunnable extends  Thread{
-        @Override
-        public void run() {
-            super.run();
+    class WorkerRunnable implements Runnable{@Override
+    public void run() {
+
             int i =0;
             for(i = 0; i<20 && running; i++){
                 try{
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         running = true;
         wt= new WorkerThread();
-        wr = new WorkerRunnable();
+        wr = new Thread(new WorkerRunnable());
 
         wt.start();
         wr.start();
