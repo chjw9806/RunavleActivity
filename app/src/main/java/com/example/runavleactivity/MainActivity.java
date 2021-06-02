@@ -9,20 +9,40 @@ import android.util.Log;
 import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
-    Thread wr,wt;
+    WorkerRunnable wr;
+    WorkerThread wt;
     boolean running = true;
     String TAG2 = "THREAD2";
     //String TAG = "THREAD";
 
-    class WorkerRunnable extends Thread{
-        public void run(){
+    class WorkerThread extends  Thread{
+        @Override
+        public void run() {
             int i =0;
-            for(i = 0; i < 20 && running; i++){
+            for(i = 0; i<20 && running; i++){
                 try{
                     Thread.sleep(1000);
+
                 }catch (InterruptedException e){
+
                 }
-                Log.v(TAG2, "Thread time=" + i);
+                Log.v(TAG,"Thread time = "+i);
+            }
+        }
+    }
+    class WorkerRunnable extends  Thread{
+        @Override
+        public void run() {
+            super.run();
+            int i =0;
+            for(i = 0; i<20 && running; i++){
+                try{
+                    Thread.sleep(1000);
+
+                }catch (InterruptedException e){
+
+                }
+                Log.v(TAG2,"Runnable time="+i);
             }
         }
     }
@@ -36,24 +56,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         running = true;
-        wt = new WorkerRunnable();
+        wt= new WorkerThread();
+        wr = new WorkerRunnable();
+
         wt.start();
-        wr = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int i =0;
-                for(i = 0; i < 20 && running; i++){
-                    try{
-                        Thread.sleep(1000);
-                    }catch (InterruptedException e){
-                    }
-                    Log.v(TAG2, "Runable time=" + i);
-                    //Log.v(TAG2, "Thread time=" + i);
-                }
-            }
-        });
         wr.start();
-        Log.v(TAG2, "Now I am in onStart");
+
+    Log.v(TAG2, "Now I am in onStart");
     }
 
     @Override
