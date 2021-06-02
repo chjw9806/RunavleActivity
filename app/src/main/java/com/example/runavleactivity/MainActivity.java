@@ -9,12 +9,12 @@ import android.util.Log;
 import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity {
-    Thread wr;
+    Thread wr,wt;
     boolean running = true;
     String TAG2 = "THREAD2";
     //String TAG = "THREAD";
 
-   /* class WorkerThread extends Thread{
+    class WorkerThread extends Thread{
         public void run(){
             int i =0;
             for(i = 0; i < 20 && running; i++){
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.v(TAG2, "Thread time=" + i);
             }
         }
-    }*/
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         running = true;
-       // wr = new WorkerThread();
+        wt = new WorkerThread();
+        wt.start();
         wr = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     }catch (InterruptedException e){
                     }
                     Log.v(TAG2, "Runable time=" + i);
-                    Log.v(TAG2, "Thread time=" + i);
+                    //Log.v(TAG2, "Thread time=" + i);
                 }
             }
         });
